@@ -33,13 +33,28 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+// Base route
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Auto Parts API Server',
+    version: '1.0.0',
+    status: 'running',
+    endpoints: {
+      test: '/api/test',
+      products: '/api/products',
+      brands: '/api/brands'
+    }
+  });
+});
+
 // Test route to check if backend is working
 app.get('/api/test', (req, res) => {
   res.json({
     message: 'Backend is working!',
     timestamp: new Date().toISOString(),
     origin: req.get('origin') || 'no origin',
-    userAgent: req.get('user-agent')
+    userAgent: req.get('user-agent'),
+    cors: 'enabled with origin: *'
   });
 });
 
