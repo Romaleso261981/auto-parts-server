@@ -5,19 +5,25 @@ import products from './data/products.js';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Configure CORS to allow requests from the Vercel frontend
+// Configure CORS - разрешаем ВСЕ origins временно для отладки
 app.use(cors({
-  origin: [
-    'https://auto-parts-client.vercel.app',
-    'http://localhost:3000',
-    'http://localhost:5173',
-    'http://localhost:5174'
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
-  credentials: true,
-  optionsSuccessStatus: 200
+  origin: '*', // Разрешаем ВСЕ origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With', 'X-HTTP-Method-Override'],
+  credentials: false
 }));
+
+// Дополнительный middleware для CORS заголовков
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, HEAD');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept, Origin, X-Requested-With');
+  
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 // Log all requests for debugging
 app.use((req, res, next) => {
