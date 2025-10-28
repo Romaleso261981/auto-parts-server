@@ -33,6 +33,16 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+// Test route to check if backend is working
+app.get('/api/test', (req, res) => {
+  res.json({
+    message: 'Backend is working!',
+    timestamp: new Date().toISOString(),
+    origin: req.get('origin') || 'no origin',
+    userAgent: req.get('user-agent')
+  });
+});
+
 // Get all products with filtering
 app.get('/api/products', (req, res) => {
   const { brand, search } = req.query;
