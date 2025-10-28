@@ -5,7 +5,16 @@ import products from './data/products.js';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// Configure CORS to allow requests from the Vercel frontend
+app.use(cors({
+  origin: [
+    'https://auto-parts-client.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'http://localhost:5174'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Get all products with filtering
