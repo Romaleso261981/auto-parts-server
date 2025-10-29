@@ -1,51 +1,93 @@
 const products = [
   {
     id: "1",
-    name: "Гальмівні колодки Brembo",
-    brand: "Brembo",
-    price: 1899,
-    image: "/images/content_image.jpg",
-    description: "Передні гальмівні колодки для Subaru Forester 2018+. Висока якість та надійність."
+    name: "Колодки гальмівні (задні) VW Caddy III 04-/Peugeot 308 07-/Citroen C4 04-",
+    brand: "MEYLE",
+    price: 770,
+    originalPrice: 825,
+    image: "/images/Brake+Disc.webp",
+    description: "Високоякісні гальмівні колодки для задніх коліс",
+    rating: 5,
+    reviewCount: 1,
+    discount: 7,
+    articleNumber: "025 209 6117",
+    country: "Німеччина",
+    code: "374134-20",
+    inStock: true
   },
   {
     id: "2",
-    name: "Фільтр масляний Mann",
-    brand: "Mann",
-    price: 349,
-    image: "/images/204190_01.jpg",
-    description: "Масляний фільтр Mann HU 718X для більшості європейських автомобілів."
+    name: "Акумулятор автомобільний 12V 60Ah",
+    brand: "VARTA",
+    price: 2500,
+    originalPrice: 2800,
+    image: "/images/Battery.webp",
+    description: "Надійний акумулятор для легкових автомобілів",
+    rating: 4,
+    reviewCount: 3,
+    discount: 11,
+    articleNumber: "E11",
+    country: "Німеччина",
+    code: "123456-78",
+    inStock: true
   },
   {
     id: "3",
-    name: "Акумулятор Varta Blue Dynamic",
-    brand: "Varta",
-    price: 2899,
-    image: "/images/Battery.webp",
-    description: "Акумулятор 12V, 70Ah, 640A. Ідеально підходить для звичайних та гібридних автомобілів."
+    name: "Свічки запалювання NGK",
+    brand: "NGK",
+    price: 450,
+    image: "/images/Spark+Plug.webp",
+    description: "Оригінальні свічки запалювання NGK",
+    rating: 5,
+    reviewCount: 5,
+    articleNumber: "BKR6E",
+    country: "Японія",
+    code: "987654-32",
+    inStock: false
   },
   {
     id: "4",
-    name: "Амортизатори KYB",
-    brand: "KYB",
-    price: 4299,
+    name: "Амортизатор передній",
+    brand: "BILSTEIN",
+    price: 3200,
     image: "/images/Shock+Absorber.webp",
-    description: "Комплект передніх амортизаторів. Покращує комфорт та керованість."
+    description: "Високоякісний амортизатор для передньої підвіски",
+    rating: 4,
+    reviewCount: 2,
+    articleNumber: "B4 19-123456",
+    country: "Німеччина",
+    code: "456789-01",
+    inStock: true
   },
   {
     id: "5",
-    name: "Свіча запалювання NGK",
-    brand: "NGK",
-    price: 249,
-    image: "/images/Spark+Plug.webp",
-    description: "Іридиєва свіча запалювання для бензинових двигунів. Тривалий термін служби."
+    name: "Ремінь ГРМ",
+    brand: "CONTITECH",
+    price: 1200,
+    originalPrice: 1400,
+    image: "/images/Timing+Belt.webp",
+    description: "Ремінь газорозподільного механізму",
+    rating: 4,
+    reviewCount: 1,
+    discount: 14,
+    articleNumber: "CT1043",
+    country: "Німеччина",
+    code: "789012-34",
+    inStock: true
   },
   {
     id: "6",
-    name: "Ремінь ГРМ Gates",
-    brand: "Gates",
-    price: 1599,
-    image: "/images/Timing+Belt.webp",
-    description: "Ремінь ГРМ Gates 5487XS PowerGrip. Професійна якість."
+    name: "Радіатор охолодження",
+    brand: "NISSENS",
+    price: 4500,
+    image: "/images/Radiator.webp",
+    description: "Радіатор системи охолодження двигуна",
+    rating: 3,
+    reviewCount: 1,
+    articleNumber: "NIS-12345",
+    country: "Данія",
+    code: "345678-90",
+    inStock: true
   },
   {
     id: "7",
@@ -53,15 +95,29 @@ const products = [
     brand: "Bosch",
     price: 7499,
     image: "/images/Alternator.webp",
-    description: "Генератор 140A для автомобілів VW, Audi, Skoda. Сервісний продукт."
+    description: "Генератор 140A для автомобілів VW, Audi, Skoda. Сервісний продукт.",
+    rating: 4,
+    reviewCount: 4,
+    articleNumber: "G11490",
+    country: "Німеччина",
+    code: "111222-33",
+    inStock: true
   },
   {
     id: "8",
-    name: "Радіатор охолодження Nissens",
-    brand: "Nissens",
-    price: 3899,
-    image: "/images/Radiator.webp",
-    description: "Радіатор охолодження двигуна. Оригінальна якість."
+    name: "Гальмівні диски Brembo",
+    brand: "Brembo",
+    price: 1899,
+    originalPrice: 2100,
+    image: "/images/Brake+Disc.webp",
+    description: "Передні гальмівні диски для Subaru Forester 2018+",
+    rating: 5,
+    reviewCount: 8,
+    discount: 10,
+    articleNumber: "09.C434.11",
+    country: "Італія",
+    code: "222333-44",
+    inStock: true
   },
   {
     id: "9",
@@ -69,7 +125,13 @@ const products = [
     brand: "Pilkington",
     price: 6999,
     image: "/images/Windscreen.webp",
-    description: "Скло переднє з підігрівом зони щіток. З поляризаційною плівкою."
+    description: "Скло переднє з підігрівом зони щіток. З поляризаційною плівкою.",
+    rating: 4,
+    reviewCount: 2,
+    articleNumber: "PW1867",
+    country: "Великобританія",
+    code: "333444-55",
+    inStock: false
   },
   {
     id: "10",
@@ -77,15 +139,29 @@ const products = [
     brand: "Weber",
     price: 5499,
     image: "/images/Carburetor.webp",
-    description: "Карбюратор Weber для класичних автомобілів. Відновлена робота."
+    description: "Карбюратор Weber для класичних автомобілів. Відновлена робота.",
+    rating: 3,
+    reviewCount: 1,
+    articleNumber: "36 DCNF",
+    country: "Італія",
+    code: "444555-66",
+    inStock: true
   },
   {
     id: "11",
-    name: "Диски гальмівні Zimmermann",
-    brand: "Zimmermann",
-    price: 1999,
-    image: "/images/Brake+Disc.webp",
-    description: "Гальмівні диски передні 312mm. Відмінне охолодження та зносостійкість."
+    name: "Фільтр масляний Mann",
+    brand: "Mann",
+    price: 349,
+    originalPrice: 380,
+    image: "/images/204190_01.jpg",
+    description: "Масляний фільтр Mann HU 718X для більшості європейських автомобілів.",
+    rating: 4,
+    reviewCount: 12,
+    discount: 8,
+    articleNumber: "HU 718X",
+    country: "Німеччина",
+    code: "555666-77",
+    inStock: true
   },
   {
     id: "12",
@@ -93,7 +169,13 @@ const products = [
     brand: "Momo",
     price: 8999,
     image: "/images/Steering+Wheel.webp",
-    description: "Спортивне кермове колесо з підігрівом. Шкіряне покриття."
+    description: "Спортивне кермове колесо з підігрівом. Шкіряне покриття.",
+    rating: 5,
+    reviewCount: 6,
+    articleNumber: "MO-3500",
+    country: "Італія",
+    code: "666777-88",
+    inStock: true
   }
 ];
 
