@@ -1,5 +1,5 @@
 import productModel from '../models/ProductModel.js';
-import { Product, ProductFilters } from '../types/index.js';
+import { Product, ProductFilters, CreateProductDto } from '../types/index.js';
 
 class ProductsService {
   async getAllProducts(): Promise<Product[]> {
@@ -39,6 +39,10 @@ class ProductsService {
       console.error('Error fetching brands:', error);
       throw error;
     }
+  }
+
+  async createProduct(productData: CreateProductDto): Promise<Product> {
+    return await productModel.create(productData);
   }
 }
 

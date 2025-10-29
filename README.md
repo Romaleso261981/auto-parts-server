@@ -67,6 +67,7 @@ Defines API routes:
 
 ### Products
 - `GET /api/products` - Get all products (query: ?brand=&search=)
+- `POST /api/products` - Create a new product
 - `GET /api/products/:id` - Get product by ID
 
 ### Brands
@@ -127,6 +128,22 @@ curl https://auto-parts-server-test.up.railway.app/api/products?search=коло�
 
 # Get product by ID
 curl https://auto-parts-server-test.up.railway.app/api/products/1
+
+# Create a new product
+curl -X POST https://auto-parts-server-test.up.railway.app/api/products \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Test Product",
+    "brand": "TestBrand",
+    "price": 1000,
+    "originalPrice": 1200,
+    "image": "/images/test.jpg",
+    "description": "Test description",
+    "articleNumber": "TEST123",
+    "country": "Test Country",
+    "code": "TEST-001",
+    "inStock": true
+  }'
 
 # Get all brands
 curl https://auto-parts-server-test.up.railway.app/api/brands

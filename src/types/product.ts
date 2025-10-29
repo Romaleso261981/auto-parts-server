@@ -20,3 +20,19 @@ export interface ProductFilters {
   search?: string;
 }
 
+export interface CreateProductDto {
+  name: string;
+  brand: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  description: string;
+  articleNumber: string;
+  country: string;
+  code: string;
+  inStock: boolean;
+  rating?: number;
+  reviewCount?: number;
+  discount?: number;
+}
+

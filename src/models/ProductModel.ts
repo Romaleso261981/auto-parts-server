@@ -1,6 +1,6 @@
 import { db } from '../config/firebase.js';
-import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
-import { Product } from '../types/index.js';
+import { collection, getDocs, getDoc, doc, setDoc } from 'firebase/firestore';
+import { Product, CreateProductDto } from '../types/index.js';
 
 class ProductModel {
   private readonly collectionName = 'products';
@@ -46,6 +46,42 @@ class ProductModel {
       );
     } catch (error) {
       console.error('Error fetching products by brand:', error);
+      throw error;
+    }
+  }
+
+  async create(productData: CreateProductDto): Promise<Product> {
+    try {
+      const productsRef = collection(db, this.collectionName);
+      const newProductRef = doc(productsRef);
+      const productId = newProductRef.id;
+
+      const product: Product = {
+        id: productId,
+        name: productData.name,
+        brand: productData.brand,
+        price: productData.price,
+        originalPrice: productData.originalPrice,
+        image: productData.image,
+        description: productData.description,
+        articleNumber: productData.articleNumber,
+        country: productData.country,
+        code: productData.code,
+        inStock: productData.inStock,
+        rating: productData.rating || 0,
+        reviewCount: productData.reviewCount || 0,
+        discount: productData.discount,
+      };
+
+      if (productData.originalPrice && productData.price < productData.originalPrice) {
+        const discountAmount = productData.originalPrice - productData.price;
+        product.discount = Math.round((discountAmount / productData.originalPrice) * 100);
+      }
+
+      await setDoc(newProductRef, product);
+      return product;
+    } catch (error) {
+      console.error('Error creating product:', error);
       throw error;
     }
   }

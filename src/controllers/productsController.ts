@@ -35,6 +35,27 @@ const productsController = {
     } catch (error) {
       res.status(500).json({ message: 'Error fetching brands', error: (error as Error).message });
     }
+  },
+
+  async createProduct(req: Request, res: Response): Promise<void> {
+    try {
+      const productData = req.body;
+
+      if (!productData.name || !productData.brand || !productData.price || !productData.image || !productData.description || !productData.articleNumber || !productData.country || !productData.code) {
+        res.status(400).json({ message: 'Missing required fields' });
+        return;
+      }
+
+      if (typeof productData.price !== 'number' || productData.price <= 0) {
+        res.status(400).json({ message: 'Price must be a positive number' });
+        return;
+      }
+
+      const newProduct = await productsService.createProduct(productData);
+      res.status(201).json(newProduct);
+    } catch (error) {
+      res.status(500).json({ message: 'Error creating product', error: (error as Error).message });
+    }
   }
 };
 
