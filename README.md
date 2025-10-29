@@ -21,10 +21,6 @@ auto-parts-server/
 │   │   └── testService.ts
 │   ├── config/               # Configuration
 │   │   └── firebase.ts      # Firebase configuration
-│   ├── data/                 # Data
-│   │   └── products.ts      # Mock products data
-│   ├── scripts/              # Utility scripts
-│   │   └── importData.ts    # Import mock data to Firestore
 │   └── types/                # TypeScript types
 │       ├── product.ts
 │       └── index.ts
@@ -75,9 +71,6 @@ Defines API routes:
 ```bash
 # Install dependencies
 npm install
-
-# Import mock data to Firebase Firestore (run once)
-npm run import-data
 
 # Run in development mode (with auto-compilation)
 npm run dev
@@ -144,22 +137,5 @@ curl https://auto-parts-server-test.up.railway.app/api/brands
 ## Firebase Setup
 
 1. The Firebase configuration is already set up in `src/config/firebase.ts`
-
-2. **Set up Firestore Security Rules** (required for import):
-   - Go to Firebase Console → Firestore Database → Rules
-   - Use the rules from `firestore.rules` or temporarily set:
-     ```javascript
-     rules_version = '2';
-     service cloud.firestore {
-       match /databases/{database}/documents {
-         match /products/{productId} {
-           allow read, write: if true;
-         }
-       }
-     }
-     ```
-   - **Important**: After importing, change rules to production-ready version (read-only for users)
-
-3. Run `npm run import-data` to import mock data to Firestore
-
-4. The data will be stored in the `products` collection
+2. Data is stored in Firebase Firestore in the `products` collection
+3. Make sure Firestore Security Rules are configured properly for your use case
