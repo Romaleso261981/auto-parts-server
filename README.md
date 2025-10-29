@@ -1,54 +1,54 @@
 # Auto Parts Server API
 
-Backend API для каталога автозапчастей с TypeScript и модульной архитектурой.
+Backend API for auto parts catalog with TypeScript and modular architecture.
 
-## Структура проекта
+## Project Structure
 
 ```
 auto-parts-server/
-├── src/                      # TypeScript исходники
+├── src/                      # TypeScript source files
 │   ├── server.ts             # Entry point
-│   ├── routes/               # Маршрутизация
-│   │   ├── index.ts         # Главный роутер
+│   ├── routes/               # Routing
+│   │   ├── index.ts         # Main router
 │   │   ├── test.ts          # /, /test
 │   │   ├── products.ts      # /products
 │   │   └── brands.ts        # /brands
-│   ├── controllers/          # Контроллеры (обработка HTTP)
+│   ├── controllers/          # Controllers (HTTP request handling)
 │   │   ├── productsController.ts
 │   │   └── testController.ts
-│   ├── services/             # Сервисы (бизнес-логика)
+│   ├── services/             # Services (business logic)
 │   │   ├── productsService.ts
 │   │   └── testService.ts
-│   ├── data/                 # Данные
-│   │   └── products.ts      # Массив продуктов
-│   └── types/                # TypeScript типы
+│   ├── data/                 # Data
+│   │   └── products.ts      # Products array
+│   └── types/                # TypeScript types
 │       ├── product.ts
 │       └── index.ts
-├── dist/                     # Скомпилированный JavaScript
-├── tsconfig.json             # Настройки TypeScript
+├── dist/                     # Compiled JavaScript
+├── tsconfig.json             # TypeScript configuration
 ├── package.json
 └── .gitignore
 ```
 
-## Архитектура
+## Architecture
 
-### 🔹 TypeScript типы (types/)
-- `Product` - интерфейс продукта
-- `ProductFilters` - фильтры для поиска
+### 🔹 TypeScript Types (types/)
+- `Product` - product interface
+- `ProductFilters` - search filters
 
-### 🔹 Service слой (services/)
-Содержит бизнес-логику и работу с данными:
-- `productsService.ts` - получение и фильтрация продуктов
-- `testService.ts` - информация о сервере
+### 🔹 Service Layer (services/)
+Contains business logic and data operations:
+- `productsService.ts` - product retrieval and filtering
+- `testService.ts` - server information
 
-### 🔹 Controller слой (controllers/)
-Обрабатывает HTTP запросы и ответы:
-- `productsController.ts` - обработка запросов продуктов
-- `testController.ts` - обработка тестовых запросов
+### 🔹 Controller Layer (controllers/)
+Handles HTTP requests and responses:
+- `productsController.ts` - product request handling
+- `testController.ts` - test request handling
 
-### 🔹 Route слой (routes/)
-Определяет маршруты API:
-- `routes/index.ts` - монтирует все роуты
+### 🔹 Route Layer (routes/)
+Defines API routes:
+- `routes/index.ts` - mounts all routes
 - `routes/test.ts` - /, /test
 - `routes/products.ts` - /products, /products/:id
 - `routes/brands.ts` - /brands
@@ -56,79 +56,79 @@ auto-parts-server/
 ## API Endpoints
 
 ### Base
-- `GET /api/` - Информация о сервере
-- `GET /api/test` - Тестовый эндпоинт
+- `GET /api/` - Server information
+- `GET /api/test` - Test endpoint
 
 ### Products
-- `GET /api/products` - Получить все продукты (query: ?brand=&search=)
-- `GET /api/products/:id` - Получить продукт по ID
+- `GET /api/products` - Get all products (query: ?brand=&search=)
+- `GET /api/products/:id` - Get product by ID
 
 ### Brands
-- `GET /api/brands` - Получить все бренды
+- `GET /api/brands` - Get all brands
 
-## Разработка
+## Development
 
 ```bash
-# Установка зависимостей
+# Install dependencies
 npm install
 
-# Запуск в режиме разработки (с автоматической перекомпиляцией)
+# Run in development mode (with auto-compilation)
 npm run dev
 
-# Компиляция TypeScript
+# Compile TypeScript
 npm run build
 
-# Проверка типов (без компиляции)
+# Type checking (without compilation)
 npm run type-check
 
-# Запуск скомпилированного кода
+# Run compiled code
 npm start
 ```
 
 ## Production Build
 
 ```bash
-# Скомпилировать TypeScript в JavaScript
+# Compile TypeScript to JavaScript
 npm run build
 
-# Запустить скомпилированное приложение
+# Run compiled application
 npm start
 ```
 
-## Деплой на Railway
+## Railway Deployment
 
-1. Railway автоматически определит TypeScript проект
-2. Будет выполнен `npm run build`
-3. Затем `npm start`
+1. Railway will automatically detect TypeScript project
+2. Will run `npm run build`
+3. Then `npm start`
 
 ## CORS
 
-CORS настроен для разрешения запросов со всех origins:
+CORS configured to allow requests from all origins:
 - Production: `https://auto-parts-client.vercel.app`
 - Development: `http://localhost:3000`, `http://localhost:5173`
 
-## Примеры запросов
+## Request Examples
 
 ```bash
-# Получить все продукты
+# Get all products
 curl https://auto-parts-server-test.up.railway.app/api/products
 
-# Фильтр по бренду
+# Filter by brand
 curl https://auto-parts-server-test.up.railway.app/api/products?brand=Mann
 
-# Поиск по названию
+# Search by name
 curl https://auto-parts-server-test.up.railway.app/api/products?search=колодки
 
-# Получить продукт по ID
+# Get product by ID
 curl https://auto-parts-server-test.up.railway.app/api/products/1
 
-# Получить все бренды
+# Get all brands
 curl https://auto-parts-server-test.up.railway.app/api/brands
 ```
 
-## Технологии
+## Technologies
 
-- **TypeScript** - типизированный JavaScript
-- **Express** - веб-фреймворк
+- **TypeScript** - typed JavaScript
+- **Express** - web framework
 - **CORS** - Cross-Origin Resource Sharing
-- **tsx** - быстрый запуск TypeScript (dev mode)
+- **tsx** - fast TypeScript execution (dev mode)

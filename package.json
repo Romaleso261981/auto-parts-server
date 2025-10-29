@@ -1,7 +1,7 @@
 {
   "name": "auto-parts-server",
   "version": "1.0.0",
-  "description": "Backend API for Auto Parts Catalog",
+  "description": "TypeScript backend API for Auto Parts Catalog with MVC architecture",
   "type": "module",
   "main": "dist/server.js",
   "scripts": {
