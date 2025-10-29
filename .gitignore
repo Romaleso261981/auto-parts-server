@@ -3,9 +3,3 @@ dist/
 *.log
 .env
 .DS_Store
-
-routes/
-controllers/
-services/
-data/products.js
-server.js
