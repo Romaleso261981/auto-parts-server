@@ -1,6 +1,6 @@
 import { db } from '../config/firebase.js';
-import { collection, getDocs, getDoc, doc, setDoc } from 'firebase/firestore';
-import { Product, CreateProductDto } from '../types/index.js';
+import { collection, getDocs, getDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
+import { Product, CreateProductDto, UpdateProductDto } from '../types/index.js';
 
 class ProductModel {
   private readonly collectionName = 'products';
@@ -82,6 +82,54 @@ class ProductModel {
       return product;
     } catch (error) {
       console.error('Error creating product:', error);
+      throw error;
+    }
+  }
+
+  async update(id: string, productData: UpdateProductDto): Promise<Product> {
+    try {
+      const productRef = doc(db, this.collectionName, id);
+      const existingProduct = await this.findById(id);
+
+      if (!existingProduct) {
+        throw new Error('Product not found');
+      }
+
+      const updateData: Partial<Product> = { ...productData };
+
+      if (productData.originalPrice !== undefined && productData.price !== undefined) {
+        if (productData.price < productData.originalPrice) {
+          const discountAmount = productData.originalPrice - productData.price;
+          updateData.discount = Math.round((discountAmount / productData.originalPrice) * 100);
+        } else if (productData.price >= productData.originalPrice) {
+          updateData.discount = undefined;
+        }
+      } else if (productData.price !== undefined && existingProduct.originalPrice) {
+        if (productData.price < existingProduct.originalPrice) {
+          const discountAmount = existingProduct.originalPrice - productData.price;
+          updateData.discount = Math.round((discountAmount / existingProduct.originalPrice) * 100);
+        } else {
+          updateData.discount = undefined;
+        }
+      } else if (productData.originalPrice !== undefined && existingProduct.price) {
+        if (existingProduct.price < productData.originalPrice) {
+          const discountAmount = productData.originalPrice - existingProduct.price;
+          updateData.discount = Math.round((discountAmount / productData.originalPrice) * 100);
+        } else {
+          updateData.discount = undefined;
+        }
+      }
+
+      await updateDoc(productRef, updateData);
+
+      const updatedProduct = await this.findById(id);
+      if (!updatedProduct) {
+        throw new Error('Failed to fetch updated product');
+      }
+
+      return updatedProduct;
+    } catch (error) {
+      console.error('Error updating product:', error);
       throw error;
     }
   }

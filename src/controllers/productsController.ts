@@ -56,6 +56,43 @@ const productsController = {
     } catch (error) {
       res.status(500).json({ message: 'Error creating product', error: (error as Error).message });
     }
+  },
+
+  async updateProduct(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+      const productData = req.body;
+
+      if (Object.keys(productData).length === 0) {
+        res.status(400).json({ message: 'No fields to update' });
+        return;
+      }
+
+      if (productData.price !== undefined && (typeof productData.price !== 'number' || productData.price <= 0)) {
+        res.status(400).json({ message: 'Price must be a positive number' });
+        return;
+      }
+
+      if (productData.rating !== undefined && (typeof productData.rating !== 'number' || productData.rating < 0 || productData.rating > 5)) {
+        res.status(400).json({ message: 'Rating must be between 0 and 5' });
+        return;
+      }
+
+      if (productData.reviewCount !== undefined && (typeof productData.reviewCount !== 'number' || productData.reviewCount < 0)) {
+        res.status(400).json({ message: 'Review count must be a non-negative number' });
+        return;
+      }
+
+      const updatedProduct = await productsService.updateProduct(id, productData);
+      res.json(updatedProduct);
+    } catch (error) {
+      const errorMessage = (error as Error).message;
+      if (errorMessage === 'Product not found') {
+        res.status(404).json({ message: 'Product not found' });
+        return;
+      }
+      res.status(500).json({ message: 'Error updating product', error: errorMessage });
+    }
   }
 };
 

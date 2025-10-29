@@ -69,6 +69,7 @@ Defines API routes:
 - `GET /api/products` - Get all products (query: ?brand=&search=)
 - `POST /api/products` - Create a new product
 - `GET /api/products/:id` - Get product by ID
+- `PUT /api/products/:id` - Update a product
 
 ### Brands
 - `GET /api/brands` - Get all brands
@@ -143,6 +144,15 @@ curl -X POST https://auto-parts-server-test.up.railway.app/api/products \
     "country": "Test Country",
     "code": "TEST-001",
     "inStock": true
+  }'
+
+# Update a product
+curl -X PUT https://auto-parts-server-test.up.railway.app/api/products/1 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "price": 950,
+    "inStock": false,
+    "rating": 4.5
   }'
 
 # Get all brands

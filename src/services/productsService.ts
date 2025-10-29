@@ -1,5 +1,5 @@
 import productModel from '../models/ProductModel.js';
-import { Product, ProductFilters, CreateProductDto } from '../types/index.js';
+import { Product, ProductFilters, CreateProductDto, UpdateProductDto } from '../types/index.js';
 
 class ProductsService {
   async getAllProducts(): Promise<Product[]> {
@@ -43,6 +43,10 @@ class ProductsService {
 
   async createProduct(productData: CreateProductDto): Promise<Product> {
     return await productModel.create(productData);
+  }
+
+  async updateProduct(id: string, productData: UpdateProductDto): Promise<Product> {
+    return await productModel.update(id, productData);
   }
 }
 
