@@ -19,6 +19,8 @@ auto-parts-server/
 │   ├── services/             # Services (business logic)
 │   │   ├── productsService.ts
 │   │   └── testService.ts
+│   ├── models/               # Models (database operations)
+│   │   └── ProductModel.ts  # Product data access layer
 │   ├── config/               # Configuration
 │   │   └── firebase.ts      # Firebase configuration
 │   └── types/                # TypeScript types
@@ -36,9 +38,13 @@ auto-parts-server/
 - `Product` - product interface
 - `ProductFilters` - search filters
 
+### 🔹 Model Layer (models/)
+Data access layer - direct database operations:
+- `ProductModel.ts` - CRUD operations for products in Firestore
+
 ### 🔹 Service Layer (services/)
-Contains business logic and data operations:
-- `productsService.ts` - product retrieval and filtering from Firebase Firestore
+Business logic layer - orchestrates models and applies business rules:
+- `productsService.ts` - product business logic, filtering, and aggregation
 - `testService.ts` - server information
 
 ### 🔹 Controller Layer (controllers/)
