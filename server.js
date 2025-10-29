@@ -1,19 +1,17 @@
 import express from 'express';
 import cors from 'cors';
-import products from './data/products.js';
+import apiRoutes from './routes/index.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Configure CORS - разрешаем ВСЕ origins временно для отладки
 app.use(cors({
-  origin: '*', // Разрешаем ВСЕ origins
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With', 'X-HTTP-Method-Override'],
   credentials: false
 }));
 
-// Дополнительный middleware для CORS заголовков
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, HEAD');
@@ -25,7 +23,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Log all requests for debugging
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path} - Origin: ${req.get('origin') || 'no origin'}`);
   next();
@@ -33,71 +30,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// Base route
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Auto Parts API Server',
-    version: '1.0.0',
-    status: 'running',
-    endpoints: {
-      test: '/api/test',
-      products: '/api/products',
-      brands: '/api/brands'
-    }
-  });
-});
-
-// Test route to check if backend is working
-app.get('/api/test', (req, res) => {
-  res.json({
-    message: 'Backend is working!',
-    timestamp: new Date().toISOString(),
-    origin: req.get('origin') || 'no origin',
-    userAgent: req.get('user-agent'),
-    cors: 'enabled with origin: *'
-  });
-});
-
-// Get all products with filtering
-app.get('/api/products', (req, res) => {
-  const { brand, search } = req.query;
-  let filteredProducts = [...products];
-
-  // Filter by brand
-  if (brand) {
-    filteredProducts = filteredProducts.filter(
-      product => product.brand.toLowerCase() === brand.toLowerCase()
-    );
-  }
-
-  // Filter by search (name)
-  if (search) {
-    const searchLower = search.toLowerCase();
-    filteredProducts = filteredProducts.filter(
-      product => product.name.toLowerCase().includes(searchLower)
-    );
-  }
-
-  res.json(filteredProducts);
-});
-
-// Get product by ID
-app.get('/api/products/:id', (req, res) => {
-  const { id } = req.params;
-  const product = products.find(p => p.id === id);
-
-  if (!product) {
-    return res.status(404).json({ message: 'Product not found' });
-  }
-
-  res.json(product);
-});
-
-// Get all brands
-app.get('/api/brands', (req, res) => {
-  const brands = [...new Set(products.map(p => p.brand))];
-  res.json(brands.sort());
-});
+app.use('/api', apiRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
